@@ -1,0 +1,14 @@
+
+# React
+client/node_modules
+client/build
+
+# Python
+server/venv
+__pycache__/
+
+# OS/Editor Files
+.DS_Store
+*.log
+.env
+
