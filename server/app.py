@@ -1,20 +1,19 @@
-from flask import Flask, jsonify
+
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Enable CORS for all routes
 
-@app.route("/api/alerts")
-def get_alerts():
-    alerts = [
-        {
-            "region": "Kupwara, J&K",
-            "type": "Border Firing",
-            "message": "Cross-border firing reported near Keran sector. Stay indoors.",
-            "timestamp": "2025-07-14 19:45"
-        }
-    ]
-    return jsonify(alerts)
+@app.route('/')
+def home():
+    return jsonify({"message": "Flask backend running!"})
 
-if __name__ == "__main__":
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.get_json()
+    name = data.get("name", "")
+    return jsonify({"message": f"Hello, {name}! Data received successfully."})
+
+if __name__ == '__main__':
     app.run(debug=True)
