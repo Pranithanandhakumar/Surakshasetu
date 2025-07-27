@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function HomePage() {
   const [name, setName] = useState('');
   const [response, setResponse] = useState('');
+  const [sosAlert, setSosAlert] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,26 +16,26 @@ function HomePage() {
     setResponse(data.message);
   };
 
-  const handleSOS = () => {
-    alert("🚨 SOS Alert Sent! Help is on the way.");
-    // Later: Send SOS to Flask backend or external service
+  const handleSos = () => {
+    setSosAlert(true);
+    alert("🚨 SOS Triggered! Help will reach you soon.");
+    // Here you can also make a POST request to backend for SOS
   };
 
   return (
-    <div style={{
-      background: "linear-gradient(to bottom right, #f0f4f8, #dceefb)",
-      minHeight: "100vh",
-      padding: "2rem",
-      fontFamily: "Segoe UI, sans-serif",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
+    <div style={{ 
+      background: "#f0f4f8", 
+      padding: "2rem", 
+      fontFamily: "sans-serif",
+      minHeight: "100vh"
     }}>
-      <h1 style={{ color: "#1a3c40", fontSize: "2.5rem", marginBottom: "0.5rem" }}>🛡 SurakshaSetu</h1>
-      <p style={{ marginBottom: "2rem", color: "#444" }}>Support system for civilians in Jammu & Kashmir</p>
+      <h1 style={{ color: "#1a3c40", fontSize: "2.5rem" }}>🛡 SurakshaSetu</h1>
+      <p style={{ fontSize: "1.2rem", marginBottom: "2rem" }}>
+        A Support System for Civilians in Jammu & Kashmir
+      </p>
 
-      <form onSubmit={handleSubmit} style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <label style={{ fontSize: "1.2rem" }}>Your Name:</label><br />
+      <form onSubmit={handleSubmit}>
+        <label style={{ fontSize: "1rem" }}>Your Name:</label><br />
         <input
           type="text"
           value={name}
@@ -44,46 +45,57 @@ function HomePage() {
             padding: "0.7rem",
             margin: "1rem 0",
             width: "300px",
-            borderRadius: "8px",
-            border: "1px solid #ccc"
+            borderRadius: "5px",
+            border: "1px solid #ccc",
           }}
         />
         <br />
         <button type="submit" style={{
-          padding: "0.7rem 1.5rem",
+          padding: "0.7rem 1.2rem",
           backgroundColor: "#1976d2",
           color: "#fff",
           border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "1rem",
-          marginRight: "1rem"
+          borderRadius: "5px",
+          cursor: "pointer"
         }}>
           Get Support Message
-        </button>
-
-        <button type="button" onClick={handleSOS} style={{
-          padding: "0.7rem 1.5rem",
-          backgroundColor: "#d32f2f",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "1rem"
-        }}>
-          🚨 SOS
         </button>
       </form>
 
       {response && (
-        <div style={{
-          marginTop: "1rem",
-          backgroundColor: "#e8f5e9",
-          padding: "1rem 2rem",
+        <div style={{ 
+          marginTop: "2rem", 
+          backgroundColor: "#e8f5e9", 
+          padding: "1rem",
           borderRadius: "8px",
-          border: "1px solid #c8e6c9"
+          border: "1px solid #4caf50"
         }}>
           <strong>Message:</strong> {response}
+        </div>
+      )}
+
+      <hr style={{ margin: "3rem 0" }} />
+
+      <button onClick={handleSos} style={{
+        padding: "1rem 2rem",
+        backgroundColor: "#d32f2f",
+        color: "#fff",
+        fontWeight: "bold",
+        border: "none",
+        borderRadius: "8px",
+        fontSize: "1rem",
+        cursor: "pointer"
+      }}>
+        🚨 SOS
+      </button>
+
+      {sosAlert && (
+        <div style={{ 
+          marginTop: "1rem", 
+          color: "#d32f2f", 
+          fontWeight: "bold" 
+        }}>
+          Emergency alert sent!
         </div>
       )}
     </div>
@@ -91,4 +103,5 @@ function HomePage() {
 }
 
 export default HomePage;
+
 
