@@ -1,43 +1,41 @@
-
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [name, setName] = useState("");
-  const [response, setResponse] = useState("");
+  const [name, setName] = useState('');
+  const [response, setResponse] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name })
-      });
-      const data = await res.json();
-      setResponse(data.message);
-    } catch (error) {
-      setResponse("Error connecting to server.");
-    }
+  const handleSubmit = async () => {
+    const res = await fetch('http://127.0.0.1:5000/replace', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    const data = await res.json();
+    setResponse(data.message);
   };
 
   return (
-    <div style={{ padding: "50px", fontFamily: "Arial" }}>
-      <h1>React to Flask App</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <button type="submit">Send to Flask</button>
-      </form>
-      <p>{response}</p>
+    <div className="app-container">
+      <header>
+        <h1>SurakshaSetu</h1>
+      </header>
+
+      <main>
+        <label>Enter your name:</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <button onClick={handleSubmit}>Submit</button>
+        {response && <p className="response">{response}</p>}
+      </main>
+
+      <button className="sos-btn">SOS</button>
+
+      <footer>
+        <p>© 2025 SurakshaSetu</p>
+      </footer>
     </div>
   );
 }
 
 export default App;
+
