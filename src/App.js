@@ -1,41 +1,31 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
-  const [name, setName] = useState('');
-  const [response, setResponse] = useState('');
-
-  const handleSubmit = async () => {
-    const res = await fetch('http://127.0.0.1:5000/replace', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name })
-    });
-    const data = await res.json();
-    setResponse(data.message);
-  };
-
   return (
-    <div className="app-container">
-      <header>
-        <h1>SurakshaSetu</h1>
-      </header>
+    <div className="App">
+      <h1>Welcome to SurakshaSetu - Stay Safe</h1>
 
-      <main>
-        <label>Enter your name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        <button onClick={handleSubmit}>Submit</button>
-        {response && <p className="response">{response}</p>}
-      </main>
+      {/* Your other components or SOS button here */}
 
-      <button className="sos-btn">SOS</button>
-
-      <footer>
-        <p>© 2025 SurakshaSetu</p>
+      {/* Add Footer */}
+      <footer style={footerStyle}>
+        <p>© 2025 SurakshaSetu | Made for the people of Jammu & Kashmir</p>
       </footer>
     </div>
   );
 }
 
+const footerStyle = {
+  backgroundColor: "#222",
+  color: "#fff",
+  textAlign: "center",
+  padding: "1rem",
+  position: "fixed",
+  bottom: 0,
+  width: "100%",
+};
+
 export default App;
+
 
